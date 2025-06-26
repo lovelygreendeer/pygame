@@ -1,6 +1,7 @@
 # Example file showing a basic pygame "game loop"
 import pygame
 from cube import Cube, makeCubes
+from bullet import Bullet
 
 # pygame setup
 pygame.init()
@@ -10,23 +11,36 @@ running = True
 dt = 0
 
 block_y = screen.get_width() / 4
+all_sprites_list = makeCubes(32, 6, 40)
+bullet_list = pygame.sprite.Group()
+player_loc = pygame.Vector2(640, 700)
 
-all_sprites_list = makeCubes(10, 50)
-
-
+bullet_list.add(Bullet())
 
 while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    all_sprites_list.update()
-    screen.fill("purple")
-    all_sprites_list.draw(screen)
-   
+    #updates
+    all_sprites_list.update()    
+    bullet_list.update()
 
+    #screenfill
+    screen.fill("purple")
+
+    #draw 
+    all_sprites_list.draw(screen)
+    bullet_list.draw(screen)
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT] and player_loc.x - 300 * dt > 10:
+        player_loc.x -= 300 * dt
+    if keys[pygame.K_RIGHT] and player_loc.x + 300 * dt < 1270:
+        player_loc.x += 300 * dt
+
+
+    pygame.draw.circle(screen, "BLACK", player_loc, 20)
 
     pygame.display.flip()
 
