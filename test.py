@@ -1,5 +1,4 @@
-from cube import Cube, makeCubes
-
-my_cube_list = makeCubes(5, 20)
-
-print(len(my_cube_list))
+test = 5
+new_test = test
+new_test += 3
+print(test)

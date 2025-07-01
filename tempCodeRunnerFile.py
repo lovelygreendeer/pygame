@@ -1,0 +1,1 @@
+player_loc = pygame.Vector2(640, 700)
